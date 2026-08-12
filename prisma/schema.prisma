@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  password      String
+  role          String    @default("user")
+  createdAt     DateTime  @default(now())
+  shipments     Shipment[]
+}
+
+model Shipment {
+  id              String     @id @default(cuid())
+  trackingNumber  String     @unique
+  status          String     @default("pending")
+
+  senderName      String
+  senderAddress   String
+  senderCity      String
+  senderState     String
+  senderZip       String
+  senderPhone     String
+  senderEmail     String
+
+  recipientName    String
+  recipientAddress String
+  recipientCity    String
+  recipientState   String
+  recipientZip     String
+  recipientPhone   String
+  recipientEmail   String
+
+  weight           Float
+  length           Float
+  width            Float
+  height           Float
+  description      String
+  declaredValue    Float
+
+  serviceType      String
+  shippingDate     DateTime
+  estimatedArrival DateTime
+
+  userId           String
+  user             User       @relation(fields: [userId], references: [id])
+  documents        Document[]
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+}
+
+model Document {
+  id         String   @id @default(cuid())
+  fileName   String
+  fileUrl    String
+  fileSize   Int
+  fileType   String
+  shipmentId String
+  shipment   Shipment @relation(fields: [shipmentId], references: [id])
+  createdAt  DateTime @default(now())
+}
