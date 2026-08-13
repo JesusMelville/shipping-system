@@ -44,7 +44,7 @@ export function AuthTemplate({ children }: AuthTemplateProps) {
       </div>
 
       {/* Right side - Form */}
-      <div className="flex-1 flex items-center justify-center p-8">
+      <div className="flex-1 flex items-center justify-center p-8 pr-16">
         <div className="w-full max-w-md">{children}</div>
       </div>
     </div>
