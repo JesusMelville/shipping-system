@@ -42,7 +42,7 @@ export function Header() {
             </div>
           }
         >
-          <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/login" })}>
+          <DropdownMenuItem onClick={async () => { await signOut({ redirect: false }); window.location.href = "/login"; }}>
             Cerrar Sesión
           </DropdownMenuItem>
         </DropdownMenu>

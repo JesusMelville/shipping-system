@@ -78,7 +78,10 @@ export function Sidebar() {
 
       <div className="p-3 border-t border-slate-700">
         <button
-          onClick={() => signOut({ callbackUrl: "/login" })}
+          onClick={async () => {
+            await signOut({ redirect: false });
+            window.location.href = "/login";
+          }}
           className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-red-600/20 hover:text-red-400 transition-colors w-full"
         >
           <LogOut className="h-5 w-5" />
